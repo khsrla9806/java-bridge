@@ -1,5 +1,8 @@
 package bridge;
 
+import bridge.enums.Keyboard;
+
+import java.security.Key;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,8 +32,8 @@ public class BridgeMaker {
 
     private String determineUpAndDown(int number) {
         if (number == 0) {
-            return "D";
+            return Keyboard.DOWN.getCommand();
         }
-        return "U";
+        return Keyboard.UP.getCommand();
     }
 }

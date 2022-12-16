@@ -1,5 +1,7 @@
 package bridge.controller;
 
+import bridge.enums.Keyboard;
+
 import java.util.List;
 
 /**
@@ -40,11 +42,11 @@ public class BridgeGame {
      */
     public void retry() {
         String gameCommand = bridgeGameController.getGameCommand();
-        if (gameCommand.equals("R")) {
+        if (gameCommand.equals(Keyboard.RESTART.getCommand())) {
             numberOfAttempts = 0;
             totalNumberAttempts++;
         }
-        if (gameCommand.equals("Q")) {
+        if (gameCommand.equals(Keyboard.QUIT.getCommand())) {
             numberOfAttempts = Integer.MAX_VALUE;
             isGameSuccess = false;
         }
