@@ -4,10 +4,9 @@ package bridge.view;
  * 사용자에게 게임 진행 상황과 결과를 출력하는 역할을 한다.
  */
 public class OutputView {
-    private final String DELIMITER = " | ";
-    private final String SUCCESS = "O";
-    private final String FAIL = "X";
-    private final String NOTHING = " ";
+    private final String SUCCESS = " O ";
+    private final String FAIL = " X ";
+    private final String NOTHING = "   ";
     private String upResult = "";
     private String downResult = "";
 
@@ -17,39 +16,41 @@ public class OutputView {
      * 출력을 위해 필요한 메서드의 인자(parameter)는 자유롭게 추가하거나 변경할 수 있다.
      */
     public void printMap(int numberOfAttempts, boolean passable, String moving) {
-        if (numberOfAttempts == 0) {
-            upResult = "";
-            downResult = "";
-            getUpAndDownResult(passable, moving);
-        }
-        if (numberOfAttempts > 0) {
-            upResult += DELIMITER;
-            downResult += DELIMITER;
-            getUpAndDownResult(passable, moving);
-        }
-        System.out.println("[ " + upResult + " ]");
-        System.out.println("[ " + downResult + " ]");
-    }
-
-    private void getUpAndDownResult(boolean passable, String moving) {
         if (moving.equals("U")) {
-            if (passable) {
-                upResult += SUCCESS;
-            }
-            if (!passable) {
-                upResult += FAIL;
-            }
-            downResult += NOTHING;
+            setUpResult(numberOfAttempts, passable);
         }
         if (moving.equals("D")) {
-            if (passable) {
-                downResult += SUCCESS;
-            }
-            if (!passable) {
-                downResult += FAIL;
-            }
-            upResult += NOTHING;
+            setDownResult(numberOfAttempts, passable);
         }
+        System.out.println("[" + upResult + "]");
+        System.out.println("[" + downResult + "]");
+    }
+
+    public void setUpResult(int numberOfAttempts, boolean passable) {
+        if (passable) {
+            upResult += getDelimiter(numberOfAttempts) + SUCCESS;
+        }
+        if (!passable) {
+            upResult += getDelimiter(numberOfAttempts) + FAIL;
+        }
+        downResult += getDelimiter(numberOfAttempts) + NOTHING;
+    }
+
+    public void setDownResult(int numberOfAttempts, boolean passable) {
+        if (passable) {
+            downResult += getDelimiter(numberOfAttempts) + SUCCESS;
+        }
+        if (!passable) {
+            downResult += getDelimiter(numberOfAttempts) + FAIL;
+        }
+        upResult += getDelimiter(numberOfAttempts) + NOTHING;
+    }
+
+    public String getDelimiter(int numberOfAttempts) {
+        if (numberOfAttempts == 0) {
+            return "";
+        }
+        return "|";
     }
 
     /**
